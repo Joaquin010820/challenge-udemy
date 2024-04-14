@@ -1,16 +1,12 @@
 import { useState } from "react";
+import Button from "./Button";
 import MovieList from "./MovieList";
 
 export default function MovieBox({ movies }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen1((open) => !open)}
-      >
-        {isOpen1 ? "–" : "+"}
-      </button>
+      <Button isOpen={isOpen1} setIsOpen={setIsOpen1} />
       {isOpen1 && <MovieList movie={movies} />}
     </div>
   );
