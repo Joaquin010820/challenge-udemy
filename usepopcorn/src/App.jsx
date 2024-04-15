@@ -2,6 +2,16 @@ import { useState } from "react";
 import NavBar from "./NavBar";
 import MainComponent from "./MainComponent";
 
+import Search from "./Search";
+import NumResult from "./NumResult";
+
+import Box from "./Box";
+
+import MovieList from "./MovieList";
+
+import Summary from "./Summary";
+import WatchedList from "./WatchedList";
+
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -54,8 +64,21 @@ export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
   return (
     <>
-      <NavBar movies={movies} />
-      <MainComponent movies={movies} watched={watched} />
+      <NavBar>
+        <Search />
+        <NumResult movies={movies} />
+      </NavBar>
+
+      <MainComponent>
+        <Box>
+          <MovieList movie={movies} />
+        </Box>
+
+        <Box>
+          <Summary watched={watched} />
+          <WatchedList watched={watched} />
+        </Box>
+      </MainComponent>
     </>
   );
 }
