@@ -1,38 +1,55 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-export default function StarRating({ maxRating = 5 }) {
+StarRating.propTypes = {
+  maxRating: PropTypes.number,
+  starColor: PropTypes.string,
+};
+
+export default function StarRating({ maxRating = 5, starColor = "#fcc419" }) {
   const [rating, setRating] = useState(0);
+  const [tempRating, setTempRating] = useState(0);
+
   return (
-    <div className="flex gap-4 items-center">
-      <div className="flex">
-        {Array.from({ length: maxRating }, (_, i) => (
-          <span value={i} key={i}>
-            <Star
-              key={i}
-              onRate={() => setRating(i + 1)}
-              full={rating >= i + 1}
-            />
-          </span>
-        ))}
+    <div className="flex flex-col items-center">
+      <div className="flex gap-4 items-center">
+        <div className="flex">
+          {Array.from({ length: maxRating }, (_, i) => (
+            <span value={i} key={i}>
+              <Star
+                key={i}
+                full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+                onRate={() => setRating(i + 1)}
+                onHoverIn={() => setTempRating(i + 1)}
+                onHoverOut={() => setTempRating(0)}
+                starColor={starColor}
+              />
+            </span>
+          ))}
+        </div>
+        <p className="m-0  leading-none">{tempRating ? tempRating : rating}</p>
       </div>
-      <p className="m-0  leading-none">{rating || ""}</p>
+
+      {rating ? <div>Add Favorites</div> : ""}
     </div>
   );
 }
 
-function Star({ onRate, full }) {
+function Star({ onRate, full, onHoverIn, onHoverOut, starColor }) {
   return (
     <span
       role="button"
       className="w-12 h-12 block cursor-pointer"
       onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
     >
       {full ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
-          fill="#000"
-          stroke="#000"
+          fill={starColor}
+          stroke={starColor}
         >
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
@@ -41,7 +58,7 @@ function Star({ onRate, full }) {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="#000"
+          stroke={starColor}
         >
           <path
             strokeLinecap="round"
