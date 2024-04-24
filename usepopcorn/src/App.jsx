@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import MainComponent from "./MainComponent";
 
@@ -11,6 +11,11 @@ import MovieList from "./MovieList";
 
 import Summary from "./Summary";
 import WatchedList from "./WatchedList";
+
+// importing error message componnets
+import ErrorMessage from "./ErrorMessage";
+
+import SelectedMovie from "./SelectedMovie";
 
 const tempMovieData = [
   {
@@ -60,23 +65,128 @@ const tempWatchedData = [
 ];
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+
+  // use the useEffect if you wanted to run or render immmediately the external API\
+  // to immediate call the function use this (async () => {})()
+  // or you can just invoke the function like fetchMOvie()
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const res = await fetch(
+  //         `http://www.omdbapi.com/?i=tt3896198&apikey=8a317c4f&s=superman`
+  //       );
+  //       if (!res.ok) throw new Error("Something went wrong");
+  //       const data = await res.json();
+  //       setMovies(data.Search);
+  //     } catch (err) {
+  //       console.log(err.message);
+  //       setError(err.message);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   })();
+  // }, []);
+
+  // use event handler if you wanted to render the api based on the events not render it immediately
+  // use the aysnc function
+
+  // function handleSearch(title) {
+  //   (async () => {
+  //     try {
+  //       setError("");
+  //       const res = await fetch(
+  //         `http://www.omdbapi.com/?i=tt3896198&apikey=8a317c4f&s=${title}`
+  //       );
+  //       const data = await res.json();
+  //       if (data.Response === "False") throw new Error("Movie not found");
+  //       setMovies(data.Search);
+  //     } catch (err) {
+  //       console.log(err.message);
+  //       setError(err.message);
+  //     }
+  //   })();
+
+  function handleSelectedMovie(id) {
+    setSelectedId((selectedId) => (selectedId === id ? null : id));
+  }
+
+  useEffect(() => {
+    async function fetchingMovie() {
+      try {
+        setIsLoading(true);
+        setError("");
+
+        const res = await fetch(
+          `http://www.omdbapi.com/?i=tt3896198&apikey=8a317c4f&s=${query}`
+        );
+        if (!res.ok) throw new Error("Something went wrong fetching movies");
+        const data = await res.json();
+        if (data.Response === "False") throw new Error("Movie not found");
+        setMovies(data.Search);
+      } catch (err) {
+        console.log(err.message);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (query.length < 3) {
+      setMovies([]);
+      setError("");
+      return;
+    }
+
+    fetchingMovie();
+  }, [query]);
+
   return (
     <>
       <NavBar>
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <NumResult movies={movies} />
       </NavBar>
 
       <MainComponent>
         <Box>
-          <MovieList movie={movies} />
+          {/* {isLoading ? (
+            <span className="loading loading-ring loading-lg"></span>
+          ) : (
+            <MovieList movie={movies} />
+          )} */}
+
+          {isLoading && (
+            <span className="loading loading-ring loading-lg"></span>
+          )}
+          {!isLoading && !error && (
+            <MovieList
+              movie={movies}
+              handleSelectedMovie={handleSelectedMovie}
+            />
+          )}
+          {error && <ErrorMessage message={error} />}
         </Box>
 
         <Box>
-          <Summary watched={watched} />
-          <WatchedList watched={watched} />
+          {selectedId ? (
+            <SelectedMovie
+              selectedId={selectedId}
+              setSelectedId={setSelectedId}
+            />
+          ) : (
+            <>
+              <Summary watched={watched} />
+              <WatchedList watched={watched} />
+            </>
+          )}
         </Box>
       </MainComponent>
     </>

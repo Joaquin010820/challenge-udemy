@@ -1,7 +1,14 @@
-import { useState } from "react";
-export default function Search() {
-  const [query, setQuery] = useState("");
+export default function Search({ query, setQuery }) {
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   if (!query) return;
+  //   const movieTitle = String(query);
+
+  //   onSearchMovie(movieTitle);
+  //   setQuery("");
+  // }
   return (
+    // <form onSubmit={handleSubmit}>
     <input
       className="search"
       type="text"
@@ -9,5 +16,6 @@ export default function Search() {
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
+    // </form>
   );
 }
