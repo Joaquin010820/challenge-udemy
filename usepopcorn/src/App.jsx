@@ -16,6 +16,7 @@ import WatchedList from "./WatchedList";
 import ErrorMessage from "./ErrorMessage";
 
 import SelectedMovie from "./SelectedMovie";
+import Loader from "./Loader";
 
 const tempMovieData = [
   {
@@ -71,6 +72,19 @@ export default function App() {
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [rating, setRating] = useState(0);
+
+  function addingWatchedMovie(newMovie) {
+    const addUserRatingInMovie = { ...newMovie, userRating: rating };
+    console.log(addUserRatingInMovie);
+    setWatched((curWatched) => {
+      if (curWatched.some((movie) => movie.imdbID === newMovie.imdbID)) {
+        return curWatched; // Return current watched list if the movie already exists
+      } else {
+        return [...curWatched, addUserRatingInMovie]; // Add the new movie if it doesn't exist
+      }
+    });
+  }
 
   // use the useEffect if you wanted to run or render immmediately the external API\
   // to immediate call the function use this (async () => {})()
@@ -163,9 +177,7 @@ export default function App() {
             <MovieList movie={movies} />
           )} */}
 
-          {isLoading && (
-            <span className="loading loading-ring loading-lg"></span>
-          )}
+          {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList
               movie={movies}
@@ -180,6 +192,9 @@ export default function App() {
             <SelectedMovie
               selectedId={selectedId}
               setSelectedId={setSelectedId}
+              addingWatchedMovie={addingWatchedMovie}
+              rating={rating}
+              setRating={setRating}
             />
           ) : (
             <>

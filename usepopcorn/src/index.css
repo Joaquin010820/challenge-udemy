@@ -54,12 +54,12 @@ body {
 }
 
 .box {
+  position: relative;
   width: 42rem;
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
   overflow: auto;
-  position: relative;
 }
 
 .loader {
@@ -305,6 +305,9 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-add:hover {

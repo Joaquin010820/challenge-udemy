@@ -6,9 +6,19 @@ StarRating.propTypes = {
   starColor: PropTypes.string,
 };
 
-export default function StarRating({ maxRating = 5, starColor = "#fcc419" }) {
-  const [rating, setRating] = useState(0);
-  const [tempRating, setTempRating] = useState(0);
+export default function StarRating({
+  maxRating = 5,
+  starColor = "#fcc419",
+  rating,
+  setRating,
+  tempRating,
+  setTempRating,
+}) {
+  // lifting up this rating state to App component
+  // const [rating, setRating] = useState(0)
+
+  //lifting up this tempRating in SelectedMovie component
+  // const [tempRating, setTempRating] = useState(0);
 
   return (
     <div className="flex flex-col items-center">
@@ -29,8 +39,6 @@ export default function StarRating({ maxRating = 5, starColor = "#fcc419" }) {
         </div>
         <p className="m-0  leading-none">{tempRating ? tempRating : rating}</p>
       </div>
-
-      {rating ? <div>Add Favorites</div> : ""}
     </div>
   );
 }
