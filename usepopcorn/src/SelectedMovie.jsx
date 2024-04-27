@@ -6,9 +6,10 @@ import Loader from "./Loader";
 export default function SelectedMovie({
   selectedId,
   setSelectedId,
-  addingWatchedMovie,
+  handleAddingWatchedMovie,
   rating,
   setRating,
+  watched,
 }) {
   const [movie, setSelectedMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,13 @@ export default function SelectedMovie({
   // passing this useState in StarRating component
   const [tempRating, setTempRating] = useState(0);
 
+  // determine if the user already added the movie in the watched list, then it render to not show the StarRating component
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const watchedUserRating = watched.find(
+    (movie) => movie.imdbID === selectedId
+  )?.userRating;
+
+  // this useEffect will be render everytime there is changes in selectedId came from the Parent component which is in the App
   useEffect(() => {
     async function fetchSelectedId() {
       try {
@@ -26,8 +34,8 @@ export default function SelectedMovie({
         if (!res.ok) throw new Error("Something went wrong with fetching");
         const data = await res.json();
         if (data.Response === "False") throw new Error("Movie not found");
-        setSelectedMovie(data);
         console.log(data);
+        setSelectedMovie(data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -44,7 +52,13 @@ export default function SelectedMovie({
       ) : (
         <>
           <header>
-            <button onClick={() => setSelectedId(null)} className="btn-back">
+            <button
+              onClick={() => {
+                setSelectedId(null);
+                setRating(0);
+              }}
+              className="btn-back"
+            >
               &larr;
             </button>
 
@@ -64,29 +78,37 @@ export default function SelectedMovie({
           </header>
           <section>
             <div className="rating">
-              <StarRating
-                maxRating={10}
-                rating={rating}
-                setRating={setRating}
-                tempRating={tempRating}
-                setTempRating={setTempRating}
-              />
+              {isWatched ? (
+                <p>
+                  You rated with this movie {watchedUserRating}
+                  <span>⭐</span>
+                </p>
+              ) : (
+                <>
+                  <StarRating
+                    maxRating={10}
+                    rating={rating}
+                    setRating={setRating}
+                    tempRating={tempRating}
+                    setTempRating={setTempRating}
+                  />
+                  {rating ? (
+                    <button
+                      className="btn-add"
+                      onClick={() => {
+                        handleAddingWatchedMovie(movie);
+                        setSelectedId(null);
+                        setRating(0);
+                      }}
+                    >
+                      <p> + Add to list</p>
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </>
+              )}
             </div>
-            {rating ? (
-              <div
-                className="btn-add"
-                onClick={() => {
-                  addingWatchedMovie(movie);
-                  setSelectedId(null);
-                  setTempRating(0);
-                }}
-              >
-                <p>Add Favorites</p>
-              </div>
-            ) : (
-              ""
-            )}
-
             <p>
               <em>{movie.Plot}</em>
             </p>

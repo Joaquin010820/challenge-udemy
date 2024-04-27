@@ -74,16 +74,36 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(null);
   const [rating, setRating] = useState(0);
 
-  function addingWatchedMovie(newMovie) {
-    const addUserRatingInMovie = { ...newMovie, userRating: rating };
-    console.log(addUserRatingInMovie);
+  // this function handles adding movies selected by user in to watched component
+  // this function passed in the selectedMovie component in accepting selected movie in param
+  function handleAddingWatchedMovie(newMovie) {
+    // in the part of userRating i added that in order to calculate the user rating in the movie
+    const addUserRatingInMovie = {
+      ...newMovie,
+      // in the part of userRating i added that in order to calculate the user rating in the movie
+      userRating: rating,
+      //this Runtime part is already existing in the api, however i need to just get the runtime and not the string or use Number()
+      Runtime: parseInt(newMovie.Runtime),
+    };
+
     setWatched((curWatched) => {
+      // this condition will check if the selected movie is already in the array, if it is already exist, then add nothing
       if (curWatched.some((movie) => movie.imdbID === newMovie.imdbID)) {
         return curWatched; // Return current watched list if the movie already exists
       } else {
         return [...curWatched, addUserRatingInMovie]; // Add the new movie if it doesn't exist
       }
+
+      // or just like this
+      // setWatched((curWacthed) => [...curWatched, addUserRating])
     });
+  }
+
+  // this function handles to delete selected movie in watchedMovie Component
+  function handleDeleteWatchedItem(selectedMovie) {
+    setWatched((cur) =>
+      cur.filter((movieItem) => movieItem.imdbID !== selectedMovie.imdbID)
+    );
   }
 
   // use the useEffect if you wanted to run or render immmediately the external API\
@@ -128,10 +148,13 @@ export default function App() {
   //     }
   //   })();
 
+  // this function handles in getting the id of selected movie item through passing this function in movieItem in the click events
   function handleSelectedMovie(id) {
     setSelectedId((selectedId) => (selectedId === id ? null : id));
   }
 
+  // this useEffect component will always render everytime there is typing in the query state which placed in Search components
+  // the query state is the dependency array, which if there is update in query, then thhis useEffect will render
   useEffect(() => {
     async function fetchingMovie() {
       try {
@@ -192,14 +215,18 @@ export default function App() {
             <SelectedMovie
               selectedId={selectedId}
               setSelectedId={setSelectedId}
-              addingWatchedMovie={addingWatchedMovie}
+              handleAddingWatchedMovie={handleAddingWatchedMovie}
               rating={rating}
               setRating={setRating}
+              watched={watched}
             />
           ) : (
             <>
               <Summary watched={watched} />
-              <WatchedList watched={watched} />
+              <WatchedList
+                watched={watched}
+                handleDeleteWatchedItem={handleDeleteWatchedItem}
+              />
             </>
           )}
         </Box>
