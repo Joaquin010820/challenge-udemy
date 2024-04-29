@@ -34,7 +34,6 @@ export default function SelectedMovie({
         if (!res.ok) throw new Error("Something went wrong with fetching");
         const data = await res.json();
         if (data.Response === "False") throw new Error("Movie not found");
-        console.log(data);
         setSelectedMovie(data);
       } catch (err) {
         console.log(err);
@@ -45,6 +44,30 @@ export default function SelectedMovie({
 
     fetchSelectedId();
   }, [selectedId]);
+
+  // this useEffect will handle changes in the browser title, it does not require self invoking function
+  useEffect(() => {
+    if (!movie.Title) return;
+    document.title = `Movie | ${movie.Title}`;
+
+    return () => {
+      document.title = "usePopcorn";
+    };
+  }, [movie]);
+
+  useEffect(() => {
+    function callBack(e) {
+      if (e.key === "Escape") {
+        setSelectedId(null);
+        console.log("closing");
+      }
+    }
+
+    document.addEventListener("keydown", callBack);
+
+    return document.addEventListener("keydown", callBack);
+  }, [setSelectedId]);
+
   return (
     <div className="details">
       {isLoading ? (
@@ -55,7 +78,7 @@ export default function SelectedMovie({
             <button
               onClick={() => {
                 setSelectedId(null);
-                setRating(0);
+                setRating("");
               }}
               className="btn-back"
             >
@@ -98,7 +121,7 @@ export default function SelectedMovie({
                       onClick={() => {
                         handleAddingWatchedMovie(movie);
                         setSelectedId(null);
-                        setRating(0);
+                        setRating("");
                       }}
                     >
                       <p> + Add to list</p>
