@@ -50,6 +50,7 @@ export default function SelectedMovie({
     if (!movie.Title) return;
     document.title = `Movie | ${movie.Title}`;
 
+    // this return statement is the clean uo function in useEffect where in after the unount it return to ist default
     return () => {
       document.title = "usePopcorn";
     };
@@ -59,13 +60,15 @@ export default function SelectedMovie({
     function callBack(e) {
       if (e.key === "Escape") {
         setSelectedId(null);
-        console.log("closing");
       }
     }
 
     document.addEventListener("keydown", callBack);
 
-    return document.addEventListener("keydown", callBack);
+    // this return statement is the clean uo function in useEffect where in after the unount it return to ist default
+    return () => {
+      document.removeEventListener("keydown", callBack);
+    };
   }, [setSelectedId]);
 
   return (

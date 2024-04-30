@@ -187,6 +187,7 @@ export default function App() {
       return;
     }
 
+    setSelectedId(null);
     fetchingMovie();
 
     return () => {
