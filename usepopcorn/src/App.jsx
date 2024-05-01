@@ -67,7 +67,10 @@ const tempWatchedData = [
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(() => {
+    const storedValue = localStorage.getItem("watched");
+    return JSON.parse(storedValue);
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
@@ -77,27 +80,13 @@ export default function App() {
   // this function handles adding movies selected by user in to watched component
   // this function passed in the selectedMovie component in accepting selected movie in param
   function handleAddingWatchedMovie(newMovie) {
-    // in the part of userRating i added that in order to calculate the user rating in the movie
-    const addUserRatingInMovie = {
-      ...newMovie,
-      // in the part of userRating i added that in order to calculate the user rating in the movie
-      userRating: rating,
-      //this Runtime part is already existing in the api, however i need to just get the runtime and not the string or use Number()
-      Runtime: parseInt(newMovie.Runtime),
-    };
-
-    setWatched((curWatched) => {
-      // this condition will check if the selected movie is already in the array, if it is already exist, then add nothing
-      if (curWatched.some((movie) => movie.imdbID === newMovie.imdbID)) {
-        return curWatched; // Return current watched list if the movie already exists
-      } else {
-        return [...curWatched, addUserRatingInMovie]; // Add the new movie if it doesn't exist
-      }
-
-      // or just like this
-      // setWatched((curWacthed) => [...curWatched, addUserRating])
-    });
+    setWatched((initialWatched) => [...initialWatched, newMovie]);
+    // localStorage.setItem("watched", JSON.stringify([...watched, addNewMovie]));
   }
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [watched]);
 
   // this function handles to delete selected movie in watchedMovie Component
   function handleDeleteWatchedItem(selectedMovie) {

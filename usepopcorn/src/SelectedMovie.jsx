@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
 // const KEY = "f84fc31d";
@@ -13,9 +13,14 @@ export default function SelectedMovie({
 }) {
   const [movie, setSelectedMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
   // passing this useState in StarRating component
   const [tempRating, setTempRating] = useState(0);
+
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    if (rating) countRef.current++;
+  }, [rating]);
 
   // determine if the user already added the movie in the watched list, then it render to not show the StarRating component
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
@@ -71,6 +76,20 @@ export default function SelectedMovie({
     };
   }, [setSelectedId]);
 
+  function updatingNewMovie() {
+    // in the part of userRating i added that in order to calculate the user rating in the movie
+    const addNewMovie = {
+      ...movie,
+      // in the part of userRating i added that in order to calculate the user rating in the movie
+      userRating: rating,
+      //this Runtime part is already existing in the api, however i need to just get the runtime and not the string or use Number()
+      Runtime: parseInt(movie.Runtime),
+      countRatingDecision: countRef.current,
+    };
+    console.log(addNewMovie);
+    handleAddingWatchedMovie(addNewMovie);
+  }
+
   return (
     <div className="details">
       {isLoading ? (
@@ -122,7 +141,7 @@ export default function SelectedMovie({
                     <button
                       className="btn-add"
                       onClick={() => {
-                        handleAddingWatchedMovie(movie);
+                        updatingNewMovie();
                         setSelectedId(null);
                         setRating("");
                       }}
