@@ -17,6 +17,8 @@ import ErrorMessage from "./ErrorMessage";
 
 import SelectedMovie from "./SelectedMovie";
 import Loader from "./Loader";
+import useMovies from "./useMovies";
+import useLocalStorageState from "./useLocalStorageState";
 
 const tempMovieData = [
   {
@@ -66,16 +68,13 @@ const tempWatchedData = [
 ];
 
 export default function App() {
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(() => {
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue);
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [rating, setRating] = useState("");
+
+  // this is the custom hooks for reusable logic like fetching movies, and putting them in local storage
+  const { movies, isLoading, error } = useMovies(query);
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
   // this function handles adding movies selected by user in to watched component
   // this function passed in the selectedMovie component in accepting selected movie in param
@@ -84,15 +83,22 @@ export default function App() {
     // localStorage.setItem("watched", JSON.stringify([...watched, addNewMovie]));
   }
 
-  useEffect(() => {
-    localStorage.setItem("watched", JSON.stringify(watched));
-  }, [watched]);
-
   // this function handles to delete selected movie in watchedMovie Component
   function handleDeleteWatchedItem(selectedMovie) {
-    setWatched((cur) =>
-      cur.filter((movieItem) => movieItem.imdbID !== selectedMovie.imdbID)
+    setWatched((initialWatched) =>
+      initialWatched.filter(
+        (movieItem) => movieItem.imdbID !== selectedMovie.imdbID
+      )
     );
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
+  }
+
+  // this function handles in getting the id of selected movie item through passing this function in movieItem in the click events
+  function handleSelectedMovie(id) {
+    setSelectedId((selectedId) => (selectedId === id ? null : id));
   }
 
   // use the useEffect if you wanted to run or render immmediately the external API\
@@ -137,52 +143,8 @@ export default function App() {
   //     }
   //   })();
 
-  // this function handles in getting the id of selected movie item through passing this function in movieItem in the click events
-  function handleSelectedMovie(id) {
-    setSelectedId((selectedId) => (selectedId === id ? null : id));
-  }
-
   // this useEffect component will always render everytime there is typing in the query state which placed in Search components
   // the query state is the dependency array, which if there is update in query, then thhis useEffect will render
-  useEffect(() => {
-    const controller = new AbortController();
-    async function fetchingMovie() {
-      try {
-        setIsLoading(true);
-        setError("");
-
-        const res = await fetch(
-          `http://www.omdbapi.com/?i=tt3896198&apikey=8a317c4f&s=${query}`,
-          { signal: controller.signal }
-        );
-        if (!res.ok) throw new Error("Something went wrong fetching movies");
-        const data = await res.json();
-        if (data.Response === "False") throw new Error("Movie not found");
-        setMovies(data.Search);
-        setError("");
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          console.log(err.message);
-          setError(err.message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    if (query.length < 3) {
-      setMovies([]);
-      setError("");
-      return;
-    }
-
-    setSelectedId(null);
-    fetchingMovie();
-
-    return () => {
-      controller.abort();
-    };
-  }, [query]);
 
   return (
     <>
@@ -213,7 +175,7 @@ export default function App() {
           {selectedId ? (
             <SelectedMovie
               selectedId={selectedId}
-              setSelectedId={setSelectedId}
+              onCloseMovie={handleCloseMovie}
               handleAddingWatchedMovie={handleAddingWatchedMovie}
               rating={rating}
               setRating={setRating}

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
+import useKey from "./useKey";
 // const KEY = "f84fc31d";
 // const KEY = "8a317c4f";
 export default function SelectedMovie({
   selectedId,
-  setSelectedId,
+  onCloseMovie,
   handleAddingWatchedMovie,
   rating,
   setRating,
@@ -15,6 +16,8 @@ export default function SelectedMovie({
   const [isLoading, setIsLoading] = useState(false);
   // passing this useState in StarRating component
   const [tempRating, setTempRating] = useState(0);
+
+  useKey("Escape", onCloseMovie);
 
   const countRef = useRef(0);
 
@@ -61,21 +64,6 @@ export default function SelectedMovie({
     };
   }, [movie]);
 
-  useEffect(() => {
-    function callBack(e) {
-      if (e.key === "Escape") {
-        setSelectedId(null);
-      }
-    }
-
-    document.addEventListener("keydown", callBack);
-
-    // this return statement is the clean uo function in useEffect where in after the unount it return to ist default
-    return () => {
-      document.removeEventListener("keydown", callBack);
-    };
-  }, [setSelectedId]);
-
   function updatingNewMovie() {
     // in the part of userRating i added that in order to calculate the user rating in the movie
     const addNewMovie = {
@@ -99,7 +87,7 @@ export default function SelectedMovie({
           <header>
             <button
               onClick={() => {
-                setSelectedId(null);
+                onCloseMovie();
                 setRating("");
               }}
               className="btn-back"
@@ -142,7 +130,7 @@ export default function SelectedMovie({
                       className="btn-add"
                       onClick={() => {
                         updatingNewMovie();
-                        setSelectedId(null);
+                        onCloseMovie();
                         setRating("");
                       }}
                     >

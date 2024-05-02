@@ -1,33 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import useKey from "./useKey";
 
 export default function Search({ query, setQuery }) {
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   if (!query) return;
-  //   const movieTitle = String(query);
-
-  //   onSearchMovie(movieTitle);
-  //   setQuery("");
-  // }
-
   const inputEl = useRef(null);
 
-  useEffect(() => {
+  useKey("Enter", function () {
+    if (document.activeElement === inputEl.current) return;
     inputEl.current.focus();
-    function callBack(e) {
-      if (document.activeElement === inputEl.current) return;
+    setQuery("");
+  });
 
-      if (e.code === "Enter") {
-        inputEl.current.focus();
-        setQuery("");
-      }
-    }
-    document.addEventListener("keydown", callBack);
-
-    return () => {
-      document.removeEventListener("keydown", callBack);
-    };
-  }, [setQuery]);
   return (
     // <form onSubmit={handleSubmit}>
     <input
