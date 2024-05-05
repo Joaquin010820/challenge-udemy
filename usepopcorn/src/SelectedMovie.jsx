@@ -74,7 +74,6 @@ export default function SelectedMovie({
       Runtime: parseInt(movie.Runtime),
       countRatingDecision: countRef.current,
     };
-    console.log(addNewMovie);
     handleAddingWatchedMovie(addNewMovie);
   }
 
