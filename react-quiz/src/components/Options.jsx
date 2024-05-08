@@ -11,7 +11,7 @@ export default function Options({ question, dispatch, answer }) {
               index === question.correctOption ? "correct" : "wrong"
             }`
           } `}
-          disabled={answer !== null}
+          disabled={hasAnswered}
           key={option}
           onClick={() => dispatch({ type: "newAnswer", payload: index })}
         >
