@@ -39,8 +39,20 @@ function CitiesProvider({ children }) {
     }
   }
 
+  // function handleAddCity(newCity) {
+  //   setCities((cities) => [...cities, newCity]);
+  // }
+
   return (
-    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity }}>
+    <CitiesContext.Provider
+      value={{
+        cities,
+        isLoading,
+        currentCity,
+        getCity,
+        // onAddCity: handleAddCity,
+      }}
+    >
       {children}
     </CitiesContext.Provider>
   );

@@ -6,7 +6,7 @@ import styles from "./Form.module.css";
 import Button from "./Button";
 import BackButton from "./BackButton";
 import { useCities } from "../contexts/CitiesContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -17,10 +17,37 @@ export function convertToEmoji(countryCode) {
 }
 
 function Form() {
+  const { onAddCity } = useCities();
+
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
+
+  // process of getting the data in the url
+  const [latlngParams] = useSearchParams();
+
+  const latParams = latlngParams.get("lat");
+  const lngParams = latlngParams.get("lng");
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+
+  //   const newCity = {
+  //     cityName: cityName,
+  //     country: "some",
+  //     emoji: "🇵🇹",
+  //     date: date,
+  //     notes: notes,
+  //     position: {
+  //       lat: Number(latParams),
+  //       lng: Number(lngParams),
+  //     },
+  //     id: latParams,
+  //   };
+
+  //   onAddCity(newCity);
+  // }
 
   return (
     <form className={styles.form}>
