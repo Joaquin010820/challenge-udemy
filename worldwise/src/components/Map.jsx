@@ -12,10 +12,10 @@ import { useCities } from "../contexts/CitiesContext";
 import { useEffect, useState } from "react";
 import { useGeolocation } from "../hooks/useGeolocation";
 import Button from "./Button";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 
 export default function Map() {
   const { cities } = useCities();
-  const [searchParams] = useSearchParams();
 
   // this variable check if there is an item inside the array of cities, if there is none it center in the initial lat and lng
   // else if there is, then the first item in array will be the one wil be in center
@@ -33,8 +33,8 @@ export default function Map() {
   } = useGeolocation();
 
   // this data came from the url passed from the city item
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
+  // this is a custom hook for getting the data from url using useSearchParams
+  const [mapLat, mapLng] = useUrlPosition();
 
   // check wheather if there is already a city inside the cities, however if its true then the initial position would be the
   // first item in an array
