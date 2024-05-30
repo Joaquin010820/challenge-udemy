@@ -1,159 +1,39 @@
 {
   "cities": [
     {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": "73930385"
-    },
-    {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": "17806751"
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": "98443197"
-    },
-    {
-      "id": "8144",
-      "cityName": "Manila",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2024-05-29T16:46:56.004Z",
-      "notes": "",
-      "position": {
-        "lat": "14.621151677648767",
-        "lng": "121.08682215020642"
-      }
-    },
-    {
-      "id": "3b64",
-      "cityName": "Polillo",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2024-05-29T16:49:04.582Z",
-      "notes": "",
-      "position": {
-        "lat": "14.39653803787609",
-        "lng": "121.95815451260927"
-      }
-    },
-    {
-      "id": "4c9d",
-      "cityName": "Libon",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2024-05-29T16:49:09.288Z",
-      "notes": "",
-      "position": {
-        "lat": "13.159044296043428",
-        "lng": "123.32062440552772"
-      }
-    },
-    {
-      "id": "ab51",
-      "cityName": "Bohol",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2024-05-29T16:49:16.207Z",
-      "notes": "",
-      "position": {
-        "lat": "9.454554428017119",
-        "lng": "123.93515665749916"
-      }
-    },
-    {
-      "id": "accd",
-      "cityName": "Sibuyan Sea",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2024-05-29T16:49:21.143Z",
-      "notes": "",
-      "position": {
-        "lat": "12.515019764621627",
-        "lng": "123.01085954758739"
-      }
-    },
-    {
-      "id": "5132",
-      "cityName": "Tabelbala",
+      "id": "daef",
+      "cityName": "Cheniguel",
       "country": "Algeria",
       "emoji": "🇩🇿",
-      "date": "2024-05-29T16:53:29.253Z",
+      "date": "2024-05-30T16:04:39.717Z",
       "notes": "",
       "position": {
-        "lat": "29.694812922376283",
-        "lng": "-3.589514465783226"
+        "lat": "35.964652930759684",
+        "lng": "3.492330364810883"
       }
     },
     {
-      "id": "8fe9",
-      "cityName": "Arlit",
-      "country": "Niger (the)",
-      "emoji": "🇳🇪",
-      "date": "2024-05-29T16:53:35.611Z",
+      "id": "43bb",
+      "cityName": "Brezina",
+      "country": "Algeria",
+      "emoji": "🇩🇿",
+      "date": "2024-05-30T16:21:33.025Z",
       "notes": "",
       "position": {
-        "lat": "18.237219769955402",
-        "lng": "10.349038155449533"
+        "lat": "33.17889975730953",
+        "lng": "1.0953106964166939"
       }
     },
     {
-      "id": "4f30",
-      "cityName": "Daimiel",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2024-05-29T16:59:29.961Z",
+      "id": "ff72",
+      "cityName": "Kerzaz",
+      "country": "Algeria",
+      "emoji": "🇩🇿",
+      "date": "2024-05-30T16:23:54.770Z",
       "notes": "",
       "position": {
-        "lat": "39.133125849291915",
-        "lng": "-3.639365871994141"
-      }
-    },
-    {
-      "id": "2bfa",
-      "cityName": "Vaissac",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2024-05-29T17:01:40.181Z",
-      "notes": "",
-      "position": {
-        "lat": "44.02612065831348",
-        "lng": "1.5957432997344203"
-      }
-    },
-    {
-      "id": "1bfb",
-      "cityName": "Quirino",
-      "country": "Philippines (the)",
-      "emoji": "🇵🇭",
-      "date": "2024-05-29T17:01:58.160Z",
-      "notes": "",
-      "position": {
-        "lat": "17.186126526102864",
-        "lng": "121.73710630676135"
+        "lat": "30.37845232949893",
+        "lng": "-0.1345776839060897"
       }
     }
   ]
