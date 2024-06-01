@@ -107,6 +107,7 @@ function Form() {
         <label htmlFor="cityName">City name</label>
         <input
           id="cityName"
+          name="cityName"
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
