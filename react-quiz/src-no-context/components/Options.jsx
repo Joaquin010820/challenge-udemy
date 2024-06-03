@@ -1,11 +1,5 @@
-import { useQuiz } from "../context/QuizContext";
-
-export default function Options() {
-  const { questions, dispatch, answer, index } = useQuiz();
+export default function Options({ question, dispatch, answer }) {
   const hasAnswered = answer !== null;
-
-  // this is also same with questions[index]
-  const question = questions.at(index);
 
   return (
     <div className="options">

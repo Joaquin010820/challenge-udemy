@@ -1,9 +1,5 @@
-import { useQuiz } from "../context/QuizContext";
-
-export default function NextButton() {
-  const { dispatch, index, numQuestions } = useQuiz();
-
-  if (index < numQuestions - 1)
+export default function NextButton({ dispatch, index, numQuestion }) {
+  if (index < numQuestion - 1)
     return (
       <button
         className={"btn btn-ui"}
@@ -13,7 +9,7 @@ export default function NextButton() {
       </button>
     );
 
-  if (index === numQuestions - 1)
+  if (index === numQuestion - 1)
     return (
       <button
         className="btn btn-ui"

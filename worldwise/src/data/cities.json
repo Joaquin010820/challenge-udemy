@@ -1,27 +1,51 @@
 {
   "cities": [
     {
-      "id": "daef",
-      "cityName": "Cheniguel",
-      "country": "Algeria",
-      "emoji": "🇩🇿",
-      "date": "2024-05-30T16:04:39.717Z",
+      "id": "b6f2",
+      "cityName": "Cebu City",
+      "country": "Philippines (the)",
+      "emoji": "🇵🇭",
+      "date": "2024-06-03T05:12:13.797Z",
       "notes": "",
       "position": {
-        "lat": "35.964652930759684",
-        "lng": "3.492330364810883"
+        "lat": "10.45642685756413",
+        "lng": "123.84887695312501"
       }
     },
     {
-      "id": "43bb",
-      "cityName": "Brezina",
-      "country": "Algeria",
-      "emoji": "🇩🇿",
-      "date": "2024-05-30T16:21:33.025Z",
+      "id": "81a6",
+      "cityName": "Roxas",
+      "country": "Philippines (the)",
+      "emoji": "🇵🇭",
+      "date": "2024-06-03T05:12:25.528Z",
       "notes": "",
       "position": {
-        "lat": "33.17889975730953",
-        "lng": "1.0953106964166939"
+        "lat": "10.515094742240548",
+        "lng": "119.32800292968751"
+      }
+    },
+    {
+      "id": "b22f",
+      "cityName": "Laoag",
+      "country": "Philippines (the)",
+      "emoji": "🇵🇭",
+      "date": "2024-06-03T05:13:10.409Z",
+      "notes": "",
+      "position": {
+        "lat": "18.19777073539396",
+        "lng": "120.60379028320314"
+      }
+    },
+    {
+      "id": "d496",
+      "cityName": "Baguio",
+      "country": "Philippines (the)",
+      "emoji": "🇵🇭",
+      "date": "2024-06-03T05:13:42.601Z",
+      "notes": "",
+      "position": {
+        "lat": "16.410160078018365",
+        "lng": "120.59417724609376"
       }
     }
   ]
