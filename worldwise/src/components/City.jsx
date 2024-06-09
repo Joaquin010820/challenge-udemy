@@ -21,7 +21,10 @@ function City() {
 
   useEffect(() => {
     getCity(id);
-  }, [id]);
+  }, [
+    id,
+    getCity, // there is a bug in this getCity dependency array, u need to wrapped the function getCity in useCallBack
+  ]);
 
   if (isLoading) return <Spinner />;
 
