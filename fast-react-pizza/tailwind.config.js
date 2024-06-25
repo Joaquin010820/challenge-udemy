@@ -9,6 +9,11 @@ export default {
       gridTemplateRows: {
         'my-rows': 'auto 1fr auto',
       },
+      colors: {
+        lightOrange: '#FF733D',
+        paleDark: '#6E6E6E',
+        darkGrey: '#191919',
+      },
     },
   },
   plugins: [],

@@ -10,7 +10,7 @@ export default function AppLayout() {
   const isLoading = navigation.state === 'loading';
 
   return (
-    <div className="grid-rows-my-rows grid h-screen">
+    <div className="grid-rows-my-rows grid h-screen bg-gradient-to-tr from-stone-600 to-stone-700">
       {isLoading && <Loader />}
 
       <Header />
