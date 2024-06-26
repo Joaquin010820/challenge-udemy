@@ -4,15 +4,16 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
-      },
-      gridTemplateRows: {
-        'my-rows': 'auto 1fr auto',
+        myPoppins: ['Poppins', 'sans-serif'],
       },
       colors: {
-        lightOrange: '#FF733D',
+        myOrange: '#FF733D',
         paleDark: '#6E6E6E',
         darkGrey: '#191919',
+        bgColor: '#36383a',
+      },
+      gridTemplateRows: {
+        myRows: 'auto 1fr 1uto',
       },
     },
   },
