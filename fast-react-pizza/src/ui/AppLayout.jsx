@@ -10,12 +10,12 @@ export default function AppLayout() {
   const isLoading = navigation.state === 'loading';
 
   return (
-    <div className="bg-bgColor font-myPoppins grid-flow-myRows grid h-screen">
+    <div className="grid h-screen grid-rows-myRows bg-bgColor font-myPoppins">
       {isLoading && <Loader />}
 
       <Header />
 
-      <main>
+      <main className="flex items-center justify-center">
         <Outlet />
       </main>
 

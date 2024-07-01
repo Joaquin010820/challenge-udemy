@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SearchOrder() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -10,7 +10,7 @@ export default function SearchOrder() {
     if (!query) return;
     //this is how you pass data from one component to another using url in react router
     navigate(`order/${query}`);
-    setQuery("");
+    setQuery('');
   }
 
   return (
@@ -20,6 +20,7 @@ export default function SearchOrder() {
         placeholder="Search order #"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        className="w-32 p-px text-center text-sm md:w-36 md:text-base"
       />
     </form>
   );
