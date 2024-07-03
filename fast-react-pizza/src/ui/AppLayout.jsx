@@ -10,12 +10,13 @@ export default function AppLayout() {
   const isLoading = navigation.state === 'loading';
 
   return (
-    <div className="grid h-screen grid-rows-myRows bg-bgColor font-myPoppins">
+    // grid-rows-[] squre bracket for own customization just like we do in tailwind config
+    <div className="grid h-screen grid-rows-[70px_1fr_100px] bg-bgColor font-myPoppins">
       {isLoading && <Loader />}
 
       <Header />
 
-      <main className="flex items-center justify-center">
+      <main className="flex items-center justify-center overflow-auto">
         <Outlet />
       </main>
 

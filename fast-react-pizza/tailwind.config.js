@@ -13,7 +13,10 @@ export default {
         bgColor: '#36383a',
       },
       gridTemplateRows: {
-        myRows: 'auto 1fr 1uto',
+        // we can use this at the same time we can use stated in the div in applayout using []
+        myRows: '80px 1fr 100px',
+        // below code use for full page scroll
+        // myRows: '100vh 100vh 100vh',
       },
     },
   },

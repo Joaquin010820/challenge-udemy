@@ -28,8 +28,10 @@ function Cart() {
   const cart = fakeCart;
 
   return (
-    <div>
-      <Link to="/menu">&larr; Back to menu</Link>
+    <div className="text-white">
+      <Link to="/menu" className="text-sm hover:text-myOrange">
+        &larr; Back to menu
+      </Link>
 
       <h2>Your cart, %NAME%</h2>
 
