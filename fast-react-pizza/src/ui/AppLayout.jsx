@@ -16,9 +16,11 @@ export default function AppLayout() {
 
       <Header />
 
-      <main className="flex items-center justify-center overflow-auto">
-        <Outlet />
-      </main>
+      <div className="mx-auto w-10/12 overflow-auto">
+        <main>
+          <Outlet />
+        </main>
+      </div>
 
       <CartOverview />
     </div>
