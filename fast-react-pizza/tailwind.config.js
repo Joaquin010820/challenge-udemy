@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        myPoppins: ['Poppins', 'sans-serif'],
+        // configure the name of font family to sans to automatically change the font to the whole application
+        sans: ['Poppins', 'sans-serif'],
+        myRoboto: ['Roboto Mono', 'monospace'],
       },
       colors: {
         myOrange: '#FF733D',
@@ -17,6 +19,10 @@ export default {
         myRows: '80px 1fr 100px',
         // below code use for full page scroll
         // myRows: '100vh 100vh 100vh',
+      },
+      height: {
+        // changing 100vh for screen in height to dvh for mobile sizes
+        screen: '100dvh',
       },
     },
   },
