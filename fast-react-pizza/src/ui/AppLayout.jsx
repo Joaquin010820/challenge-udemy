@@ -16,8 +16,8 @@ export default function AppLayout() {
 
       <Header />
 
-      <div className="mx-auto my-auto w-10/12 overflow-auto">
-        <main>
+      <div className="overflow-auto">
+        <main className="mx-auto max-w-3xl">
           <Outlet />
         </main>
       </div>
