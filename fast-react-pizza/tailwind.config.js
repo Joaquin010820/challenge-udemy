@@ -9,7 +9,7 @@ export default {
         myRoboto: ['Roboto Mono', 'monospace'],
       },
       colors: {
-        myOrange: '#FF733D',
+        myOrange: '#ec1a37',
         paleDark: '#6E6E6E',
         darkGrey: '#191919',
         bgColor: '#36383a',
