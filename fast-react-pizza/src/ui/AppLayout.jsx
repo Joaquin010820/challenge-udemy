@@ -11,7 +11,7 @@ export default function AppLayout() {
 
   return (
     // grid-rows-[] squre bracket for own customization just like we do in tailwind config
-    <div className="grid h-screen grid-rows-[70px_1fr_100px] bg-bgColor">
+    <div className="grid h-screen grid-rows-[100px_1fr_100px] bg-bgColor">
       {isLoading && <Loader />}
 
       <Header />

@@ -9,7 +9,7 @@ function MenuItem({ pizza }) {
       <img
         src={imageUrl}
         alt={name}
-        className={`h-24 ${soldOut && 'opacity-70 grayscale'}`}
+        className={`h-24 ${soldOut && 'opacity-70 grayscale'} rounded-lg`}
       />
       <div className="flex flex-grow flex-col pt-0.5">
         <p className="font-medium text-white">{name}</p>

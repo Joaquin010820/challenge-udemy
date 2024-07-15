@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between bg-transparent px-5 py-1 text-sm font-normal text-white md:px-10 md:text-base">
       <Link to="/" className="font-semibold tracking-widest text-myOrange">
-        Crust Pizza Parlor
+        <img src="./logo2.png" className="h-24" />
       </Link>
       <SearchOrder />
       <Username />
