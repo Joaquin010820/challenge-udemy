@@ -28,8 +28,16 @@ function CreateOrder() {
   const formErrors = useActionData();
   const dispatch = useDispatch();
 
-  const username = useSelector((state) => state.user.username);
-  const address = useSelector((state) => state.user.address);
+  const {
+    username,
+    status: addressStatus,
+    // we can use position.latitude or longitude for conditional rendering, but i chose address itself
+    position,
+    address,
+    error: errorAddress,
+  } = useSelector((state) => state.user);
+
+  const isLoadingAddress = addressStatus === 'loading';
 
   if (!cart.length) return <EmptyCart />;
   return (
@@ -37,8 +45,6 @@ function CreateOrder() {
       <h2 className="mb-8 text-xl font-semibold leading-6">
         Ready to order? Let's go!
       </h2>
-
-      <button onClick={() => dispatch(fetchAddress())}>get Location</button>
 
       {/* // this Form with capital T is provided by the react router, Form method will be POST
       since we are tryong to send data to our server */}
@@ -68,14 +74,34 @@ function CreateOrder() {
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
-          <div className="grow">
+          <div className="relative grow">
             <input
               type="text"
               name="address"
               required
+              disabled={isLoadingAddress}
               className="input w-full"
               defaultValue={address}
             />
+
+            {addressStatus === 'error' && (
+              <p className="mt-2 p-2 text-xs text-myOrange">{errorAddress}</p>
+            )}
+
+            {!address && (
+              <span className="absolute right-1 top-1 z-50 md:right-1.5 md:top-1.5">
+                <Button
+                  disabled={isLoadingAddress}
+                  type="small"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(fetchAddress());
+                  }}
+                >
+                  Get Location
+                </Button>
+              </span>
+            )}
           </div>
         </div>
 
@@ -95,8 +121,18 @@ function CreateOrder() {
 
         <div className="relative">
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+          <input
+            type="hidden"
+            name="position"
+            value={
+              position.longitude && position.latitude
+                ? `${position.latitude}, ${position.longitude}`
+                : ''
+            }
+          />
+
           <div className="absolute right-0">
-            <Button disabled={isSubmitting} type="primary">
+            <Button disabled={isSubmitting || isLoadingAddress} type="primary">
               {isSubmitting
                 ? 'Placing order...'
                 : `Order now for ${formatCurrency(totalPrice)}`}
