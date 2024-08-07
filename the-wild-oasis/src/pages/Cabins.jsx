@@ -4,20 +4,16 @@ import Row from "../ui/Row";
 import { getCabins } from "../services/apiCabins";
 
 function Cabins() {
-  const cabins = function () {
-    return getCabins().then((data) => data);
-  };
-
-  console.log(cabins);
-
+  useEffect(() => {
+    getCabins().then((data) => console.log(data));
+  }, []);
   return (
     <Row type="horizontal">
       <Heading as="h1">All cabins</Heading>
-      <ul>
-        {cabins.map((data) => (
-          <li key="data.id">{data.name}</li>
-        ))}
-      </ul>
+      <img
+        src="https://lyyrtoofnyfunnzhbgpd.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg"
+        alt=""
+      />
       <p>TEST</p>
     </Row>
   );

@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import AddUser from "./pages/AddUser";
+import Violations from "./pages/Violations";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route index element={<Navigate replace to="/dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="account" element={<Account />} />
+            <Route path="violations" element={<Violations />} />
             <Route path="reports" element={<Reports />} />
             <Route path="addUser" element={<AddUser />} />
             <Route path="users" element={<Users />} />

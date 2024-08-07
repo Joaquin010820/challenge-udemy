@@ -2,7 +2,9 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
   HiMiniSquares2X2,
+  HiOutlineSquares2X2,
   HiOutlineDocumentDuplicate,
+  HiOutlineBookOpen,
   HiOutlineUserPlus,
   HiOutlineCog6Tooth,
   HiOutlineUsers,
@@ -59,8 +61,15 @@ export default function MainNav() {
       <NavList>
         <li>
           <StyledNavLink to="/dashboard">
-            <HiMiniSquares2X2 />
+            {/* <HiMiniSquares2X2 /> */}
+            <HiOutlineSquares2X2 />
             <span>Dashboard</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/violations">
+            <HiOutlineBookOpen />
+            <span>Violations</span>
           </StyledNavLink>
         </li>
         <li>
